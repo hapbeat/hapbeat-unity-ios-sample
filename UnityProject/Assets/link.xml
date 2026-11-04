@@ -1,0 +1,4 @@
+<linker>
+  <!-- The check app reads SDK internals by reflection (HbUnicastRoute, SentPcm). -->
+  <assembly fullname="Hapbeat.Runtime" preserve="all" />
+</linker>

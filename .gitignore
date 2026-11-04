@@ -1,0 +1,15 @@
+.DS_Store
+build/
+
+UnityProject/Library/
+UnityProject/Temp/
+UnityProject/Logs/
+UnityProject/obj/
+UnityProject/UserSettings/
+UnityProject/MemoryCaptures/
+UnityProject/Packages/packages-lock.json
+UnityProject/*.csproj
+UnityProject/*.sln
+UnityProject/.vs/
+UnityProject/.utmp/
+UnityProject/.gradle/
