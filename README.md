@@ -11,6 +11,7 @@ Hapbeat を iOS のアプリで使うことを検討している方が、ご自�
 | iPhone | iPhone 17 Pro Max、iOS 26.6.2 |
 | Mac | macOS 26.4.1、Xcode 26.6 |
 | Unity | 6000.0.59f2 |
+| 機器のファームウェア | v1.0.0 の開発版（1.0.0d49） |
 | 署名 | 無料の Apple ID（Personal Team） |
 | ビルドの構成 | ReleaseForRunning（Xcode の Run の既定）、Release、Debug |
 
@@ -19,6 +20,7 @@ Hapbeat を iOS のアプリで使うことを検討している方が、ご自�
 **確かめていないこと:**
 
 - **TestFlight・App Store 用の署名:** Apple の文書は、ブロードキャストの送信に multicast の entitlement（`com.apple.developer.networking.multicast`）を求めています。上の環境では無くても機器が見つかりましたが、理由は分かっていません。配布を予定している場合は、配布用の署名でもお確かめください。
+- **公開版のファームウェア（0.5.0）の機器:** 通信の形式が合うことはコードで確かめましたが、iPhone からの再生は試していません。
 - **ほかの iPhone と iOS の版**
 - **長時間の使用での発熱と電池の消費**
 
