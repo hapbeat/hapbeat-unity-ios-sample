@@ -12,7 +12,7 @@ Hapbeat を iOS のアプリで使うことを検討している方が、ご自�
 | Mac | macOS 26.4.1、Xcode 26.6 |
 | Unity | 6000.0.59f2 |
 | 署名 | 無料の Apple ID（Personal Team） |
-| ビルドの構成 | Release |
+| ビルドの構成 | ReleaseForRunning（Xcode の Run の既定）、Release、Debug |
 
 この環境で、機器の発見、StreamClip の再生、Kit の再生のどれでも、アプリが落ちずに機器が振動することを確かめました。
 
@@ -39,10 +39,9 @@ Hapbeat を iOS のアプリで使うことを検討している方が、ご自�
 4. Edit > Project Settings > Player の iOS のタブで、Other Settings の Bundle Identifier をご自身の値に変えます（`com.yourcompany.hapbeatcheck` のままでは署名できません）。
 5. Build Profiles の Build を押し、書き出し先のフォルダを選びます。
 6. 書き出された `Unity-iPhone.xcodeproj` を Xcode で開き、Unity-iPhone のターゲットの Signing & Capabilities で Team を選びます。
-7. Product > Scheme > Edit Scheme で、Run の Build Configuration を Release にします。
-8. iPhone をケーブルでつないで選び、Run を押します。
-9. 初回に「信頼されていない開発元」と出たら、iPhone の設定 > 一般 > VPN とデバイス管理で開発元を信頼して、もう一度 Run を押します。
-10. ローカルネットワークの許可が出たら「許可」を押します。
+7. iPhone をケーブルでつないで選び、Run を押します。
+8. 初回に「信頼されていない開発元」と出たら、iPhone の設定 > 一般 > VPN とデバイス管理で開発元を信頼して、もう一度 Run を押します。
+9. ローカルネットワークの許可が出たら「許可」を押します。
 
 ## 確認すること
 
@@ -63,7 +62,7 @@ Kit の一覧が空のときは、機器に Kit が入っていません。Hapbe
 - **無視してよいログ:** 起動直後の `Discovery send to 255.255.255.255 failed (HostUnreachable)` と `Discovery send to 169.254.255.255 failed`。機器が答えた後は別の宛先へ送ります。
 - **落ちたとき:** この repo の [Issues](https://github.com/hapbeat/hapbeat-unity-ios-sample/issues) に、次の 2 つを添えてご連絡ください。どちらも Xcode の Window > Devices and Simulators から取れます。ログにはお使いのネットワークの IP が含まれます。
   - アプリの Documents フォルダの `hb-check.log`（アプリを選んで Download Container）
-  - クラッシュログ（View Device Logs）
+  - クラッシュログ（Open Recent Logs。古い Xcode では View Device Logs）
 
 ## お使いのアプリへの導入
 
