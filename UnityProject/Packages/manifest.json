@@ -1,6 +1,6 @@
 {
   "dependencies": {
-    "com.hapbeat.sdk": "https://github.com/hapbeat/hapbeat-unity-sdk.git#bdf2762c93fb0d1a62c0c55b718293f81d995226",
+    "com.hapbeat.sdk": "https://github.com/hapbeat/hapbeat-unity-sdk.git#v1.0.1",
     "com.unity.modules.animation": "1.0.0",
     "com.unity.modules.audio": "1.0.0",
     "com.unity.modules.imgui": "1.0.0",

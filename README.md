@@ -2,7 +2,7 @@
 
 Hapbeat を iOS のアプリで使うことを検討している方が、ご自身の iPhone と Hapbeat の機器で動作を確かめるための Unity プロジェクトです。StreamClip の再生と、機器に入っている Kit の再生をボタンで試せます。
 
-使っている SDK は、iOS の修正を含む開発版（`1.0.0-d1` の commit）で、正式なリリースではありません。v1.0.0 の公開後に公開版へ切り替えます。公開中の SDK（v0.5.0〜v0.6.0）は、iOS で StreamClip を使うと落ちます（[iOS で落ちる問題](#ios-で落ちる問題)）。
+使っている SDK は v1.0.1 です。v0.5.0 から v1.0.0 までの SDK は、iOS で StreamClip を使うと落ちます（[iOS で落ちる問題](#ios-で落ちる問題)）。iOS では 1.0.1 以降をお使いください。
 
 ## 確認した環境
 
@@ -11,6 +11,7 @@ Hapbeat を iOS のアプリで使うことを検討している方が、ご自�
 | iPhone | iPhone 17 Pro Max、iOS 26.6.2 |
 | Mac | macOS 26.4.1、Xcode 26.6 |
 | Unity | 6000.0.59f2 |
+| SDK | 1.0.1 の公開前の commit（`bdf2762`。コードは 1.0.1 と同じ） |
 | 機器のファームウェア | v1.0.0 の開発版（1.0.0d49） |
 | 署名 | 無料の Apple ID（Personal Team） |
 | ビルドの構成 | ReleaseForRunning（Xcode の Run の既定）、Release、Debug |
@@ -20,7 +21,7 @@ Hapbeat を iOS のアプリで使うことを検討している方が、ご自�
 **確かめていないこと:**
 
 - **TestFlight・App Store 用の署名:** Apple の文書は、ブロードキャストの送信に multicast の entitlement（`com.apple.developer.networking.multicast`）を求めています。上の環境では無くても機器が見つかりましたが、理由は分かっていません。配布を予定している場合は、配布用の署名でもお確かめください。
-- **公開版のファームウェア（0.5.0）の機器:** 通信の形式が合うことはコードで確かめましたが、iPhone からの再生は試していません。
+- **公開版のファームウェア:** 確認には v1.0.0 の開発版を使いました。公開版の 1.0.0 と、その前の 0.5.0 の機器では、iPhone からの再生を試していません。0.5.0 とは、通信の形式が合うことをコードで確かめました。
 - **ほかの iPhone と iOS の版**
 - **長時間の使用での発熱と電池の消費**
 
@@ -71,11 +72,10 @@ Kit の一覧が空のときは、機器に Kit が入っていません。Hapbe
 `Packages/manifest.json` の SDK の指定を、次の値に変えます。
 
 ```json
-"com.hapbeat.sdk": "https://github.com/hapbeat/hapbeat-unity-sdk.git#bdf2762c93fb0d1a62c0c55b718293f81d995226"
+"com.hapbeat.sdk": "https://github.com/hapbeat/hapbeat-unity-sdk.git#v1.0.1"
 ```
 
-- 開発版の commit なので、v1.0.0 の公開後はそちらへ切り替えてください。
-- SDK 0.6.0 から上げる場合は、[CHANGELOG](https://github.com/hapbeat/hapbeat-unity-sdk/blob/bdf2762c93fb0d1a62c0c55b718293f81d995226/CHANGELOG.md) の Unreleased をご確認ください。主な変更は、Kit の素材の強さの名前（`intensity` から `clip_gain`）と、`HapbeatConfig.hapticDelaySeconds` の削除（`HapbeatAvSync` へ移動）です。
+- SDK 0.6.0 から上げる場合は、[CHANGELOG](https://github.com/hapbeat/hapbeat-unity-sdk/blob/v1.0.1/CHANGELOG.md) の 1.0.0 をご確認ください。主な変更は、Kit の素材の強さの名前（`intensity` から `clip_gain`）と、`HapbeatConfig.hapticDelaySeconds` の削除（`HapbeatAvSync` へ移動）です。
 - SDK が対応する Unity は 6000.0 以降です。
 - ローカルネットワークの許可の説明文は、`Assets/Editor/HbCheckBuild.cs` の `AddLocalNetworkUsage` をそのまま使えます。
 
@@ -84,8 +84,8 @@ Kit の一覧が空のときは、機器に Kit が入っていません。Hapbe
 - **症状:** iOS で StreamClip を再生中に機器が見つかると、スレッド `HapbeatEndpointStreamMixer` が `EXC_BREAKPOINT (code=1)` で停止します。機器が無いときは落ちません。
 - **原因:** StreamClip の送信を受け持つスレッドが、診断用の計測に `GC.GetAllocatedBytesForCurrentThread()` を呼んでいました。この関数は Unity の IL2CPP に実装が無く、iOS 向けのビルドでは呼んだ瞬間に停止します。例外ではないので `try`/`catch` では防げません。Android では停止せずに動いて見えていました。
 - **Kit の再生（`Play`）:** このスレッドを使わないので落ちません。
-- **修正:** IL2CPP のビルドではこの計測を行いません。再生には影響しません。
-- **該当する版:** v0.5.0 と v0.6.0 に同じ呼び出しがあることをコードで確かめました。iPhone で再現を確かめたのは、修正の 1 つ前の開発版（`84d4655`）です。
+- **修正:** v1.0.1 で、IL2CPP のビルドではこの計測を行わないようにしました。再生には影響しません。
+- **該当する版:** v0.5.0 から v1.0.0 まで。v0.5.0、v0.6.0、v1.0.0 に同じ呼び出しがあることをコードで確かめました。iPhone で再現を確かめたのは、修正の 1 つ前の開発版（`84d4655`）です。
 
 ## ライセンス
 
